@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const port = 8080
@@ -14,11 +14,8 @@ app.use(express.urlencoded({ extended: true }))
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'itemstoye@gmail.com',
-    pass: 'qszo tjdp vhkj bgvw'
-
-    // user: process.env.EMAIL_USER,
-    // pass: process.env.EMAIL_PASS
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
@@ -27,7 +24,7 @@ app.post('/contact', (req, res) => {
 
   const mailOptions = {
     from: email,
-    to: "itemstoye@gmail.com" , // Owner's email
+    to: process.env.EMAIL_USER , // Owner's email
     subject: 'New Message from Contact Form',
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
   };
